@@ -1,5 +1,6 @@
 CREATE TABLE Departments (
     ID SERIAL PRIMARY KEY,
+    NAME VARCHAR(100),
     HeadDoctor VARCHAR(100),
     Floor INT,
     Phone VARCHAR(20)
@@ -40,7 +41,8 @@ CREATE TABLE Patient (
     Age INT,
     Address TEXT,
     Phone VARCHAR(20),
-    Email VARCHAR(100)
+    Email VARCHAR(100),
+    Insurance VARCHAR(100)
 );
 
 CREATE TABLE Prescriptions (
