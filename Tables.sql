@@ -1,21 +1,12 @@
 CREATE TABLE Departments (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     HeadDoctor VARCHAR(100),
     Floor INT,
     Phone VARCHAR(20)
 );
 
-CREATE TABLE Offices (
-    ID INT PRIMARY KEY,
-    DoctorID INT,
-    RoomNum VARCHAR(10),
-    Floor INT,
-    Type VARCHAR(50),
-    FOREIGN KEY (DoctorID) REFERENCES Doctors(ID)
-);
-
 CREATE TABLE Doctors (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     Name VARCHAR(100),
     DepNum INT,
     Gender VARCHAR(10),
@@ -26,15 +17,34 @@ CREATE TABLE Doctors (
     FOREIGN KEY (DepNum) REFERENCES Departments(ID)
 );
 
+CREATE TABLE Offices (
+    ID SERIAL PRIMARY KEY,
+    DoctorID INT,
+    RoomNum VARCHAR(10),
+    Floor INT,
+    Type VARCHAR(50),
+    FOREIGN KEY (DoctorID) REFERENCES Doctors(ID)
+);
+
 CREATE TABLE Medications (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     Name VARCHAR(100),
     Description TEXT,
     SideEffects TEXT
 );
 
+CREATE TABLE Patient (
+    ID SERIAL PRIMARY KEY,
+    Name VARCHAR(100),
+    Gender VARCHAR(10),
+    Age INT,
+    Address TEXT,
+    Phone VARCHAR(20),
+    Email VARCHAR(100)
+);
+
 CREATE TABLE Prescriptions (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     DoctorID INT,
     MedicationID INT,
@@ -48,17 +58,17 @@ CREATE TABLE Prescriptions (
 );
 
 CREATE TABLE Billing (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     Date DATE,
-    Amount DECIMAL(10,2),
+    Amount NUMERIC(10,2),
     PaymentMethod VARCHAR(50),
     Status VARCHAR(50),
     FOREIGN KEY (PatientID) REFERENCES Patient(ID)
 );
 
 CREATE TABLE Referrals (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     FromDoctorID INT,
     ToDepartmentID INT,
     PatientID INT,
@@ -70,7 +80,7 @@ CREATE TABLE Referrals (
 );
 
 CREATE TABLE Appointments (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     DoctorID INT,
     Date DATE,
@@ -81,7 +91,7 @@ CREATE TABLE Appointments (
 );
 
 CREATE TABLE Surgeries (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     DoctorID INT,
     SurgeryType VARCHAR(100),
@@ -92,7 +102,7 @@ CREATE TABLE Surgeries (
 );
 
 CREATE TABLE LabTests (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     DoctorID INT,
     TestType VARCHAR(100),
@@ -102,18 +112,8 @@ CREATE TABLE LabTests (
     FOREIGN KEY (DoctorID) REFERENCES Doctors(ID)
 );
 
-CREATE TABLE Patient (
-    ID INT PRIMARY KEY,
-    Name VARCHAR(100),
-    Gender VARCHAR(10),
-    Age INT,
-    Address TEXT,
-    Phone VARCHAR(20),
-    Email VARCHAR(100)
-);
-
 CREATE TABLE MedicalRoom (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     Type VARCHAR(100),
     Capacity INT,
     Floor INT,
@@ -121,7 +121,7 @@ CREATE TABLE MedicalRoom (
 );
 
 CREATE TABLE EmergencyContacts (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     Name VARCHAR(100),
     Relationship VARCHAR(50),
@@ -130,7 +130,7 @@ CREATE TABLE EmergencyContacts (
 );
 
 CREATE TABLE MedicalHistory (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     Condition VARCHAR(100),
     DiagnosisDate DATE,
@@ -139,7 +139,7 @@ CREATE TABLE MedicalHistory (
 );
 
 CREATE TABLE Insurance (
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     PatientID INT,
     Provider VARCHAR(100),
     PolicyNumber VARCHAR(50),
